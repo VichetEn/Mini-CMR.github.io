@@ -5,8 +5,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const customerBtn = document.getElementById("customer-btn");
     const customerForm = document.getElementById("customer-form");
     const customerTableBody = document.getElementById("customer-table-body");
+    const filterInputCustomer = document.getElementById("filterInputCustomer");
+    const filterDropdownCustomer = document.getElementById("filterDropdownCustomer");
+    const toggleBtn = document.querySelector(".toggle");
+    const navigation = document.querySelector(".navigation");
+    const main = document.querySelector(".main");
 
-    let customers = [];
+    // Toggle sidebar
+    toggleBtn.addEventListener("click", () => {
+        navigation.classList.toggle("active");
+        main.classList.toggle("active");
+    });
+
+    // Load customers from local storage
+    let customers = JSON.parse(localStorage.getItem("customers")) || [];
 
     // Navigation toggle
     dashboardBtn.addEventListener("click", () => {
@@ -19,25 +31,31 @@ document.addEventListener("DOMContentLoaded", () => {
         customer.classList.remove("hidden");
     });
 
+    // Add customer form submission
     customerForm.addEventListener("submit", (e) => {
-        e.preventDefault(); // Fixed typo here
-    
-        // Get form values
+        e.preventDefault();
+
         const firstname = document.getElementById("firstname").value;
         const lastname = document.getElementById("lastname").value;
         const email = document.getElementById("email").value;
         const phone = document.getElementById("phone").value;
-    
-        // Create customer object
+
+        if (!firstname || !lastname || !email || !phone) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
         const customer = { firstname, lastname, email, phone };
-        customers.push(customer); // Add the new customer to the array
-        updateCustomerTable(); // Refresh the table with updated data
-        customerForm.reset(); // Clear the form
+        customers.push(customer);
+        updateCustomerTable();
+        customerForm.reset();
+
+        localStorage.setItem("customers", JSON.stringify(customers));
     });
-    
-    // Update the customer table dynamically
+
+    // Update the customer table
     function updateCustomerTable() {
-        customerTableBody.innerHTML = ""; // Clear existing rows
+        customerTableBody.innerHTML = "";
         customers.forEach((customer, index) => {
             const row = document.createElement("tr");
             row.innerHTML = `
@@ -53,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             customerTableBody.appendChild(row);
         });
     }
-    
+
     // Edit customer functionality
     window.editCustomer = (index) => {
         const customer = customers[index];
@@ -61,60 +79,78 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("lastname").value = customer.lastname;
         document.getElementById("email").value = customer.email;
         document.getElementById("phone").value = customer.phone;
-    
-        customers.splice(index, 1); // Remove the selected customer
-        updateCustomerTable(); // Refresh the table
+
+        customers.splice(index, 1);
+        updateCustomerTable();
+        localStorage.setItem("customers", JSON.stringify(customers));
     };
-    
+
     // Delete customer functionality
     window.deleteCustomer = (index) => {
-        customers.splice(index, 1); // Remove the selected customer
-        updateCustomerTable(); // Refresh the table
+        customers.splice(index, 1);
+        updateCustomerTable();
+        localStorage.setItem("customers", JSON.stringify(customers));
     };
-});
-// Function to filter the table based on search input
-function filterTable() {
-  const input = document.getElementById("filterInput");
-  const filter = input.value.trim().toLowerCase();
-  const rows = document.querySelectorAll(".briefs-table tbody tr");
 
-  rows.forEach((row) => {
-    const name = row.querySelector("td:nth-child(1)").textContent.trim().toLowerCase(); // First Name column
-    if (name.includes(filter)) {
-      row.style.display = "";
-    } else {
-      row.style.display = "none";
+    // Initial load of customers
+    updateCustomerTable();
+
+    // Filter functionality for Customer
+    if (filterInputCustomer) {
+        filterInputCustomer.addEventListener("input", filterTable);
     }
-  });
-}
 
-// Function to sort the table based on dropdown selection
-function applyFilter() {
-  const dropdown = document.getElementById("filterDropdown");
-  const option = dropdown.value;
-  const rows = Array.from(document.querySelectorAll(".briefs-table tbody tr"));
+    if (filterDropdownCustomer) {
+        filterDropdownCustomer.addEventListener("change", applyFilter);
+    }
 
-  rows.sort((a, b) => {
-    const cellA = a.querySelector("td:nth-child(1)").textContent.trim().toLowerCase(); // First Name column
-    const cellB = b.querySelector("td:nth-child(1)").textContent.trim().toLowerCase(); // First Name column
-    return option === "asc" ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
-  });
+    // Function to filter the table based on search input
+    function filterTable() {
+        const filter = filterInputCustomer.value.trim().toLowerCase();
+        const rows = document.querySelectorAll("#customer-table-body tr");
 
-  const tbody = document.querySelector(".briefs-table tbody");
-  tbody.innerHTML = "";
-  rows.forEach((row) => tbody.appendChild(row));
-}
+        rows.forEach((row) => {
+            const name = row.querySelector("td:nth-child(1)").textContent.trim().toLowerCase();
+            row.style.display = name.includes(filter) ? "" : "none";
+        });
+    }
 
-// Add event listeners for search and filter
-document.addEventListener("DOMContentLoaded", () => {
-  const filterInput = document.getElementById("filterInput");
-  const filterDropdown = document.getElementById("filterDropdown");
+    // Function to sort the table based on dropdown selection
+    function applyFilter() {
+        const option = filterDropdownCustomer.value;
+        const rows = Array.from(document.querySelectorAll("#customer-table-body tr"));
 
-  if (filterInput) {
-    filterInput.addEventListener("input", filterTable);
-  }
+        rows.sort((a, b) => {
+            const cellA = a.querySelector("td:nth-child(1)").textContent.trim().toLowerCase();
+            const cellB = b.querySelector("td:nth-child(1)").textContent.trim().toLowerCase();
+            return option === "asc" ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        });
 
-  if (filterDropdown) {
-    filterDropdown.addEventListener("change", applyFilter);
-  }
+        const tbody = document.querySelector("#customer-table-body");
+        tbody.innerHTML = "";
+        rows.forEach((row) => tbody.appendChild(row));
+    }
+
+    // Graph initialization
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+            datasets: [{
+                label: 'Sales Data',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 });
