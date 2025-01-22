@@ -5,56 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRM Dashboard</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="container">
-    <!-- Sidebar Navigation -->
-<div class="navigation">
-    <ul>
-        <li>
-            <span class="icon toggle">
-                <ion-icon name="menu-outline"></ion-icon>
-            </span>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><ion-icon name="bonfire-outline"></ion-icon></span>
-                <span class="title">CRM</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" id="dashboard-btn">
-                <span class="icon"><ion-icon name="clipboard-outline"></ion-icon></span>
-                <span class="title">Dashboard</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" id="customer-btn">
-                <span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-                <span class="title">Customer</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><ion-icon name="chatbox-outline"></ion-icon></span>
-                <span class="title">Message</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <span class="icon"><ion-icon name="settings-outline"></ion-icon></span>
-                <span class="title">Setting</span>
-            </a>
-        </li>
-        <li>
-            <a href="login.html" onclick="return confirm('Are you sure you want to leave this page?')">
-                <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
-                <span class="title">Sign Out</span>
-            </a>
-        </li>
-    </ul>
-</div>
-
+        <!-- Sidebar Navigation -->
+        <div class="navigation">
+            <ul>
+                <li>
+                    <span class="icon toggle"><ion-icon name="menu-outline"></ion-icon></span>
+                    <a href="#">
+                        <span class="icon"><ion-icon name="bonfire-outline"></ion-icon></span>
+                        <span class="title">CRM</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="dashboard-btn">
+                        <span class="icon"> <ion-icon name="clipboard-outline"></ion-icon> </span>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="customer-btn">
+                        <span class="icon"> <ion-icon name="people-outline"></ion-icon> </span>
+                        <span class="title">Customer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"> <ion-icon name="chatbox-outline"></ion-icon> </span>
+                        <span class="title">Message</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"> <ion-icon name="settings-outline"></ion-icon> </span>
+                        <span class="title">Setting</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html" onclick="return confirm('Are you sure you want to leave this page?')">
+                        <span class="icon"> <ion-icon name="log-out-outline"></ion-icon> </span>
+                        <span class="title">Sign Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         <!-- Main Content -->
         <div class="main">
@@ -89,13 +85,31 @@
                         </div>
                         <div class="iconbx"><ion-icon name="cash-outline"></ion-icon></div>
                     </div>
+                    <div class="card">
+                        <div>
+                            <div class="numbers">120</div>
+                            <div class="cardname">Orders</div>
+                        </div>
+                        <div class="iconbx"><ion-icon name="cube-outline"></ion-icon></div>
+                    </div>
+                    <div class="card">
+                        <div>
+                            <div class="numbers">1,200</div>
+                            <div class="cardname">Users</div>
+                        </div>
+                        <div class="iconbx"><ion-icon name="people-outline"></ion-icon></div>
+                    </div>
+                </div>
+
+                <!-- Graph Section -->
+                <div class="graph-container">
+                    <canvas id="myChart" width="400" height="200"></canvas>
                 </div>
             </div>
 
             <!-- Customer Section -->
-            <br>
             <div id="customer" class="hidden">
-                <h1 style= "text-align: center;">Customer Management</h1>
+                <h1 style="text-align: center;">Customer Management</h1>
 
                 <!-- Add Customer Form -->
                 <div class="form-card">
@@ -120,14 +134,15 @@
                         <button type="submit">Add Customer</button>
                     </form>
                 </div>
-                <!-- Search and Filter Section -->
+
+                <!-- Filter Section for Customer -->
                 <div class="filter-container">
-                      <input type="text" id="filterInput" placeholder="Search by name...">
-                      <select id="filterDropdown">
+                    <input type="text" id="filterInputCustomer" placeholder="Search by name...">
+                    <select id="filterDropdownCustomer">
                         <option value="">Select filter...</option>
                         <option value="asc">Sort A-Z</option>
                         <option value="desc">Sort Z-A</option>
-                      </select>
+                    </select>
                 </div>
 
                 <!-- Customer Table -->
@@ -149,6 +164,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
