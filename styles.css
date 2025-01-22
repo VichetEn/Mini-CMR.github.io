@@ -1,27 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
- * {
-    font-family: 'Ubuntu', sans-serif;
+/* Global Styles */
+body {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
+                url('background1.jpg') no-repeat center/cover fixed;
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: o;
-    box-sizing: border-box;
- }
- :root{
+    padding: 0;
+}
+
+:root {
     --blue: #2a2185;
     --white: #fff;
     --gray: #f5f5f5;
     --black1: #222;
     --black2: #999;
- }
- body{
-    min-width: 100vh;
-    overflow-x: hidden;
- }
- 
- .container{
-    position: relative;
-    width: 100%;
- }
- .navigation{
+}
+
+/* Sidebar */
+.navigation {
     position: fixed;
     width: 300px;
     height: 100%;
@@ -29,55 +24,62 @@
     border-left: 10px solid var(--blue);
     transition: 0.5s;
     overflow: hidden;
- }
- .navigation :active{
+}
+
+.navigation.active {
     width: 80px;
- }
- .navigation ul{
+}
+
+.navigation ul {
     position: absolute;
     top: 0;
     bottom: 0;
     width: 100%;
- }
- .navigation ul li{
+    padding: 0;
+    margin: 0;
+}
+
+.navigation ul li {
     position: relative;
     width: 100%;
     list-style: none;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
- }
- .navigation ul li:hover,
- .navigation ul li.hovered{
+}
+
+.navigation ul li:hover,
+.navigation ul li.hovered {
     background-color: var(--white);
- }
- .navigation ul li:nth-child(1) {
-    margin-bottom: 40px;
-    pointer-events: none;
- }
- .navigation ul li a{
+}
+
+.navigation ul li a {
     position: relative;
     display: block;
     width: 100%;
     display: flex;
     text-decoration: none;
     color: var(--white);
- }
- .navigation ul li:hover a,
- .navigation ul li.hovered a {
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
     color: var(--blue);
- }
- .navigation ul li a .icon{
+}
+
+.navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 60px;
     height: 60px;
     line-height: 75px;
     text-align: center;
- }
- .navigation ul li a .icon ion-icon{
+}
+
+.navigation ul li a .icon ion-icon {
     font-size: 1.75rem;
- }
- .navigation ul li a .title{
+}
+
+.navigation ul li a .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -85,245 +87,234 @@
     line-height: 60px;
     text-align: start;
     white-space: nowrap;
- }
- .navigation ul li:hover a::before,
- .navigation ul li.hovered a::before {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: -50px;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px 35px 0 10px var(--white);
-    pointer-events: none;
- }
- .navigation ul li:hover a::after,
- .navigation ul li.hovered a::after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: -50px;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px -35px 0 10px var(--white);
-    pointer-events: none;
- }
- /*====main====*/
- .main{
+}
+
+/* Main Content */
+.main {
     position: absolute;
     width: calc(100% - 300px);
     left: 300px;
     min-height: 100vh;
     background: var(--white);
     transition: 0.5s;
- }
- .main.active{
-    width: calc(100% - 80px);
-    left: 80px; 
- }
- .topbar{
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
- }
- .toggle{
-    position: relative;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
-    cursor: pointer;
- }
- .search{
-    position: relative;
-    width: 400px;
-    margin: 0 10px;
- }
- .search label{
-    position: relative;
-    width: 100%;
- }
- .search label input{
-    width: 100%;
-    height: 40px;
-    border-radius: 40px;
-    padding: 5px 20px;
-    padding-left: 35px;
-    font-size: 18px;
-    outline: none;
-    border: 1px solid var(--black2);
- }
- .search label ion-icon{
-    position: absolute;
-    top: 0;
-    left: 10px;
-    font-size: 1.2rem;
- }
- .user{
-    position: relative;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
-    cursor: pointer;
-    /*position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;*/
- }
- /*---- card ----*/
- .cardBox{
-   position: relative;
-   width: 100%;
-   padding: 20px;
-   display: grid;
-   grid-template-columns: repeat(4, 1fr);
-   grid-gap: 30px;
- }
- .cardBox .card{
-   position: relative;
-   background: var(--white);
-   padding: 30px;
-   border-radius: 20px;
-   display: flex;
-   justify-content: space-between;
-   cursor: pointer;
-   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.38);
- }
- .cardBox .card .numbers{
-   position: relative;
-   font-weight: 500;
-   font-size: 2.5rem;
-   color: var(--blue);
- }
- .cardBox .card .cardname{
-   color: var(--black2);
-   font-size: 1.1rem;
-   margin-top: 5px;
- }
- .cardBox .card .iconbx{
-   font-size: 3.5rem;
-   color: var(--black2);
- }
- .cardBox .card:hover{
-   background: var(--blue);
- }
- .cardBox .card:hover .numbers,
- .cardBox .card:hover .cardname,
- .cardBox .card:hover .iconbx {
-   color: var(--white);
- }
- .hidden {
-   display: none;
 }
 
+.main.active {
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+/* Toggle Button */
+.toggle {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--blue);
+}
+
+/* CardBox */
+.cardBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 30px;
+}
+
+.cardBox .card {
+    position: relative;
+    background: var(--white);
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.38);
+    height: 120px;
+}
+
+.cardBox .card .numbers {
+    position: relative;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--blue);
+    text-align: center;
+}
+
+.cardBox .card .cardname {
+    color: var(--black2);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.cardBox .card .iconbx {
+    font-size: 2rem;
+    color: var(--black2);
+    text-align: center;
+}
+
+.cardBox .card:hover {
+    background: var(--blue);
+}
+
+.cardBox .card:hover .numbers,
+.cardBox .card:hover .cardname,
+.cardBox .card:hover .iconbx {
+    color: var(--white);
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}
+
+/* Form Styling */
 .form-card {
-   background-color: var(--white);
-   padding: 20px;
-   border-radius: 10px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-   margin-bottom: 20px;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .form-card h2 {
-   margin-bottom: 15px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .form-card form {
-   display: flex;
-   flex-direction: column;
-   gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .form-card form label {
-   display: flex;
-   flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .form-card form input {
-   padding: 10px;
-   border: 1px solid var(--black2);
-   border-radius: 5px;
-   font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .form-card form button {
-   padding: 10px;
-   background-color: var(--blue);
-   color: white;
-   border: none;
-   border-radius: 5px;
-   cursor: pointer;
-   font-size: 16px;
+    padding: 10px;
+    background-color: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
 }
 
 .form-card form button:hover {
-   background-color: #1a1464;
+    background-color: #1a1464;
 }
 
+/* Table Styling */
 table {
-   width: 100%;
-   border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
 table th, table td {
-   border: 1px solid #ddd;
-   padding: 10px;
-   text-align: left;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
 }
 
 table th {
-   background-color: var(--blue);
-   color: white;
+    background-color: var(--blue);
+    color: white;
 }
 
 table tr:hover {
-   background-color: #f1f1f1;
+    background-color: #f1f1f1;
 }
 
 table button {
-   margin-right: 5px;
-   padding: 5px 10px;
-   background-color: var(--blue);
-   color: white;
-   border: none;
-   border-radius: 3px;
-   cursor: pointer;
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: var(--blue);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
 }
 
 table button:hover {
-   background-color: #1a1464;
+    background-color: #1a1464;
 }
-/* Filter Container Styling */
+
+/* Filter Container */
 .filter-container {
-  margin-bottom: 20px;
-  display: flex;
-  gap: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
-#filterInput {
-  padding: 8px;
-  width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+#filterInputCustomer {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-#filterDropdown {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+#filterDropdownCustomer {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .cardBox {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .cardBox {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .cardBox {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cardBox .card {
+        padding: 10px;
+        height: 100px;
+    }
+
+    .cardBox .card .numbers {
+        font-size: 1.5rem;
+    }
+
+    .cardBox .card .iconbx {
+        font-size: 1.8rem;
+    }
+}
